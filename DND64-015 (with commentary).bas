@@ -240,8 +240,8 @@
 sp% - character speed
 gp% - character gold
 ra% - character race (1 - human 2 - elf 3 - dwarf 4 - tiefling)
-s1%, d1%, etc - racial ability score (AB) bonus
-sr% - character subrace (depends on race). modifies racial AS bonus
+s1%, d1%, etc - racial ability score bonus
+sr% - character subrace (depends on race). modifies racial ability score bonus
 cl% - character class (1 - fighter 2 - warlock 3 - cleric)
 ac%, ah%, etc - character available skill proficiency based on classh, race, background (2 - available, 1 - chosen, 0 - unavailable)
 ba% - character background (1 - acolyte 2 - noble 3 - soldier 4 - sage)
