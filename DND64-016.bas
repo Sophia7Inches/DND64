@@ -142,7 +142,7 @@
 366 let ac%(1)=d2% : if ac%=1 then let ac%(1)=d2%+2
 367 let sd%(1)=d2% : if sd%=1 then let sd%(1)=d2%+2
 368 let sh%(1)=d2% : if sh%=1 then let sh%(1)=d2%+2
-370 let co%=co%+e1% : let e2%=int((co%-10)/2) : let c4%=c2%+c3%
+370 let co%=co%+e1% : let e2%=int((co%-10)/2) : let e4%=c2%+c3%
 374 let in%=in%+i1% : let i2%=int((in%-10)/2) : let i4%=i2%+i3%
 375 let ar%(1)=i2% : if ar%=1 then let ar%(1)=i2%+2
 376 let hi%(1)=i2% : if hi%=1 then let hi%(1)=i2%+2
