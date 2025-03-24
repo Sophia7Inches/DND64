@@ -143,7 +143,7 @@
 366 let ac%(1)=d2% : if ac%=1 then let ac%(1)=d2%+2
 367 let sd%(1)=d2% : if sd%=1 then let sd%(1)=d2%+2
 368 let sh%(1)=d2% : if sh%=1 then let sh%(1)=d2%+2
-370 let co%=co%+e1% : let e2%=int((co%-10)/2) : let e4%=c2%+c3%
+370 let co%=co%+e1% : let e2%=int((co%-10)/2) : let e4%=e2%+e3%
 374 let in%=in%+i1% : let i2%=int((in%-10)/2) : let i4%=i2%+i3%
 375 let ar%(1)=i2% : if ar%=1 then let ar%(1)=i2%+2
 376 let hi%(1)=i2% : if hi%=1 then let hi%(1)=i2%+2
@@ -187,12 +187,14 @@
 515 print
 520 print "your character speed is" sp% "ft"
 525 print
-530 print "page 1/3 ";
+530 print "page 1/5 ";
 531 input "choose your page"; pa%
-535 if pa%<1 or pa%>3 then print chr$(145) chr$(145) : goto 530
+535 if pa%<1 or pa%>5 then print chr$(145) chr$(145) : goto 530
 536 if pa%=1 goto 395
 540 if pa%=2 then print chr$(147)
-541 if pa%=3 goto 588
+541 if pa%=3 goto 590
+542 if pa%=4 goto 706
+543 if pa%=5 goto 786
 545 print "your character skill modifiers are:"
 546 print
 550 print "athletics - " at%(1)
@@ -214,12 +216,14 @@
 566 print "performance - " pe%(1)
 567 print "persuasion - " pr%(1)
 568 print
-580 print "page 2/3 ";
+580 print "page 2/5 ";
 581 input "choose your page"; pa%
-585 if pa%<1 or pa%>3 then print chr$(145) chr$(145) : goto 580
+585 if pa%<1 or pa%>5 then print chr$(145) chr$(145) : goto 580
 586 if pa%=2 goto 540
 587 if pa%=1 goto 395
-588 if pa%=3 then print chr$(147)
+588 if pa%=4 goto 706
+589 if pa%=5 goto 786
+590 if pa%=3 then print chr$(147)
 600 gosub 20000
 601 print "character weapon inventory"
 602 print
@@ -227,12 +231,44 @@
 611 print "weapon slot number"z%;p$(p%(z%));p1%(z%) : let z%=z%+1
 612 if z% <10 goto 611
 650 print
-700 print "page 3/3 ";
+700 print "page 3/5 ";
 701 input "choose your page"; pa%
 702 if pa%=1 goto 395
 703 if pa%=2 goto 540
-704 if pa%=3 goto 588
-705 if pa%<1 or pa%>3 then print chr$(145) chr$(145) : goto 700
+704 if pa%=3 goto 590
+705 if pa%=5 goto 786
+706 if pa%=4 then print chr$(147)
+707 if pa%<1 or pa%>5 then print chr$(145) chr$(145) : goto 700
+750 gosub 21000
+751 print "character misc inventory"
+752 print
+760 let z%=0
+761 print "misc slot number"z%;n$(n%(z%));n1%(z%) : let z%=z%+1
+762 if z% <10 goto 761
+770 print
+780 print "page 4/5 ";
+781 input "choose your page"; pa%
+782 if pa%=1 goto 395
+783 if pa%=2 goto 540
+784 if pa%=3 goto 590
+785 if pa%=4 goto 706
+786 if pa%=5 then print chr$(147)
+787 if pa%<1 or pa%>5 then print chr$(145) chr$(145) : goto 780
+800 gosub 22000
+801 print "character ammo inventory"
+802 print
+810 let z%=0
+811 print "ammo slot number"z%;a$(a%(z%));a1%(z%) : let z%=z%+1
+812 if z% <10 goto 811
+820 print
+830 print "page 5/5 ";
+831 input "choose your page"; pa%
+832 if pa%=1 goto 395
+833 if pa%=2 goto 540
+834 if pa%=3 goto 590
+835 if pa%=4 goto 706
+836 if pa%=5 goto 786
+837 if pa%<1 or pa%>5 then print chr$(145) chr$(145) : goto 830
 1000 print chr$(147)
 1010 print "1 - chain mail"
 1020 print "2 - leather armor, longbow, 20 arrows"
@@ -257,9 +293,9 @@
 1225 print
 1230 input "choose your starting equipment"; ic%(3)
 1240 if ic%(3)<1 or ic%(3)>2 then goto 1200
-1250 if ic%(3)=1 then let as%=20 : as$="bolts" : x%=9 : x1%=1 : gosub 10000
+1250 if ic%(3)=1 then let x%=9 : x1%=1 : gosub 10000
+1251 if ic%(3)=1 then let w%=2 : w1%=20 : gosub 12000
 1260 if ic%(3)=2 then let x%=8 : x1%=2 : gosub 10000
-1261 if ic%(3)=2 then let w%=2 : w1%=20 : gosub 12000
 1300 print chr$(147)
 1310 print "1 - a dungeoneer pack"
 1320 print "2 - an explorer pack"
@@ -309,4 +345,12 @@
 20007 let p$(7)="warhammer"
 20008 let p$(8)="handaxe"
 20009 let p$(9)="light crossbow"
-20010 return
+20100 return
+21000 let n$(0)="empty"
+21001 let n$(1)="dungeoneer pack"
+21002 let n$(2)="explorer pack"
+21100 return
+22000 let a$(0)="empty"
+22001 let a$(1)="arrows"
+22002 let a$(2)="bolts"
+22100 return
