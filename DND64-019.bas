@@ -1,3 +1,5 @@
+1 dim p$(25)
+2 dim p%(25)
 10 print chr$(147) : sp%=30
 20 print "1 - human 2 - elf 3 - dwarf 4 - tiefling"
 25 print
@@ -114,9 +116,11 @@
 276 if it%<>2 and (b1%=16 or b2%=16) then let b1%=0 : let b2%=0 : goto 160
 278 if pe%=2 and (b1%=17 or b2%=17) then pe%=1 : pe$="performance " : goto 281
 279 if pe%<>2 and (b1%=17 or b2%=17) then let b1%=0 : let b2%=0 : goto 160
-281 if pr%=2 and (b1%=18 or b2%=18) then pr%=1 : pr$="persuasion " : goto 290
+281 if pr%=2 and (b1%=18 or b2%=18) then pr%=1 : pr$="persuasion " : goto 285
 282 if pr%<>2 and (b1%=18 or b2%=18) then let b1%=0 : let b2%=0 : goto 160
 285 if cl%=1 then goto 1000
+286 if cl%=2 then goto 2000
+287 if cl%=3 then goto 3000
 290 print chr$(147)
 291 print "please enter your stats. race modifiers will be added automatically"
 292 print
@@ -275,8 +279,8 @@
 1025 print
 1030 input "choose your starting equipment"; ic%(1)
 1040 if ic%(1)<1 or ic%(1)>2 then goto 1000
-1050 if ic%(1)=1 then let ac%=1 : ap$="chain armor" : ap%=16 : ca%=1
-1060 if ic%(1)=2 then let ac%=2 : ap$="leather armor" : ap%=11 : ca%=0
+1050 if ic%(1)=1 then let am%=1
+1060 if ic%(1)=2 then let am%=2
 1061 if ic%(1)=2 then let x%=1 : x1%=1 : gosub 10000
 1062 if ic%(1)=2 then let w%=1 : w1%=20 : gosub 12000
 1100 print chr$(147)
@@ -293,9 +297,9 @@
 1225 print
 1230 input "choose your starting equipment"; ic%(3)
 1240 if ic%(3)<1 or ic%(3)>2 then goto 1200
-1250 if ic%(3)=1 then let x%=9 : x1%=1 : gosub 10000
+1250 if ic%(3)=1 then let x%=11 : x1%=1 : gosub 10000
 1251 if ic%(3)=1 then let w%=2 : w1%=20 : gosub 12000
-1260 if ic%(3)=2 then let x%=8 : x1%=2 : gosub 10000
+1260 if ic%(3)=2 then let x%=18 : x1%=2 : gosub 10000
 1300 print chr$(147)
 1310 print "1 - a dungeoneer pack"
 1320 print "2 - an explorer pack"
@@ -308,15 +312,90 @@
 1500 print chr$(147)
 1501 gosub 5000
 1502 input "choose your martial weapon"; x%
-1503 let x1%=1 : gosub 10000
-1504 goto 1200
+1503 if x%<1 or x%>9 then goto 1500
+1504 let x1%=1 : gosub 10000
+1505 goto 1200
 1550 print chr$(147)
 1551 gosub 5000
 1552 input "choose your first martial weapon"; x%
-1553 let x1%=1 : gosub 10000
-1554 input "choose your second martial weapon"; x%
-1555 let x1%=1 : gosub 10000
-1556 goto 1200
+1553 if x%<1 or x%>9 then goto 1550
+1554 let x1%=1 : gosub 10000
+1555 input "choose your second martial weapon"; x%
+1556 if x%<1 or x%>9 then goto 1550
+1557 let x1%=1 : gosub 10000
+1558 goto 1200
+2000 print chr$(147)
+2010 print "1 - a light crossbow and 20 bolts"
+2020 print "2 - any simple weapon"
+2025 print
+2030 input "choose your starting equipment"; ic%(1)
+2040 if ic%(1)<1 or ic%(1)>2 then goto 2000
+2050 if ic%(1)=1 then let x%=11 : x1%=1 : gosub 10000
+2055 if ic%(1)=1 then let w%=2 : w1%=20 : gosub 12000
+2060 if ic%(1)=2 then gosub 2500
+2100 print chr$(147)
+2110 print "1 - a component pouch"
+2120 print "2 - an arcane focus"
+2125 print
+2130 input "choose your starting equipment"; ic%(2)
+2140 if ic%(2)<1 or ic%(2)>2 then goto 2100
+2150 if ic%(2)=1 then let y%=4 : y1%=1 : gosub 11000
+2160 if ic%(2)=2 then let y%=5 : y1%=1 : gosub 11000
+2200 print chr$(147)
+2210 print "1 - a scholar pack"
+2220 print "2 - a dungeoneer pack"
+2225 print
+2230 input "choose your starting equipment"; ic%(3)
+2240 if ic%(3)<1 or ic%(2)>3 then goto 2200
+2250 if ic%(3)=1 then let y%=3 : y1%=1 : gosub 11000
+2260 if ic%(3)=2 then let y%=1 : y1%=1 : gosub 11000
+2300 let am%=11 : let x%=15 : x1%=2 : gosub 10000
+2310 gosub 2500
+2320 goto 290
+2500 print chr$(147)
+2501 gosub 6000
+2502 input "choose your simple weapon"; sw%
+2503 if sw%<1 or sw%>9 then goto 2500
+2504 let x%=sw%+10 : let x1%=1 : gosub 10000
+2505 return
+3000 print chr$(147)
+3010 print "1 - a mace"
+3020 print "2 - a warhammer"
+3025 print
+3030 input "choose your starting equipment"; ic%(1)
+3040 if ic%(1)<1 or ic%(1)>2 then goto 3000
+3050 if ic%(1)=1 then let x%=20 : x1%=1 : gosub 10000
+3060 if ic%(2)=1 then let x%=7 : x1%=1 : gosub 10000
+3100 print chr$(147)
+3110 print "1 - scale mail"
+3120 print "2 - leather armor"
+3130 print "3 - chain mail"
+3135 print
+3140 input "choose your starting equipment"; ic%(2)
+3150 if ic%(2)<1 or ic%(2)>3 then goto 3100
+3151 if ic%(2)=1 then let am%=3
+3152 if ic%(2)=2 then let am%=2
+3153 if ic%(2)=3 then let am%=1
+3160 print chr$(147)
+3161 print "1 - a light crossbow and 20 bolts"
+3162 print "2 - any simple weapon"
+3165 print
+3170 input "choose your starting equipment"; ic%(3)
+3171 if ic%(3)<1 or ic%(3)>2 then goto 3160
+3172 if ic%(3)=1 then let x%=11 : x1%=1 : gosub 10000
+3173 if ic%(3)=1 then let w%=2 : w1%=20 : gosub 12000
+3174 if ic%(3)=2 then gosub 2500
+3200 print chr$(147)
+3210 print "1 - a priest pack"
+3220 print "2 - an explorer pack"
+3225 print
+3230 input "choose your starting equipment"; ic%(4)
+3240 if ic%(4)<1 or ic%(4)>2 then goto 3200
+3250 if ic%(4)=1 then let y%=6 : y1%=1 : gosub 11000
+3260 if ic%(4)=2 then let y%=2 : y1%=1 : gosub 11000
+3300 let se%=1
+3310 let y%=7 : y1%=1 : gosub 11000
+3320 goto 290
 5000 print "1 - longbow"
 5001 print "2 - hand crossbow"
 5002 print "3 - heavy crossbow"
@@ -324,8 +403,21 @@
 5004 print "5 - greataxe"
 5005 print "6 - longsword"
 5006 print "7 - warhammer"
-5007 print
-5008 return
+5007 print "8 - shortsword"
+5008 print "9 - halberd"
+5009 print
+5010 return
+6000 print "1 - light crossbow"
+6001 print "2 - shortbow"
+6002 print "3 - sling"
+6003 print "4 - spear"
+6004 print "5 - dagger"
+6005 print "6 - greatclub"
+6006 print "7 - quarterstuff"
+6007 print "8 - handaxe"
+6008 print "9 - sickle"
+6009 print
+6010 return
 10000 let z%=0
 10001 if p%(z%)=0 or p%(z%)=x% then let p%(z%)=x% : p1%(z%)=p1%(z%)+x1%:return
 10002 if p%(z%)<>0 then let z%=z%+1 : goto 10001
@@ -343,14 +435,37 @@
 20005 let p$(5)="greataxe"
 20006 let p$(6)="longsword"
 20007 let p$(7)="warhammer"
-20008 let p$(8)="handaxe"
-20009 let p$(9)="light crossbow"
+20008 let p$(8)="shortsword"
+20009 let p$(9)="halberd"
+20010 let p$(11)="light crossbow"
+20012 let p$(12)="shortbow"
+20013 let p$(13)="sling"
+20014 let p$(14)="spear"
+20015 let p$(15)="dagger"
+20016 let p$(16)="greatclub"
+20017 let p$(17)="quarterstuff"
+20018 let p$(18)="handaxe"
+20019 let p$(19)="sickle"
+20020 let p$(20)="mace"
 20100 return
 21000 let n$(0)="empty"
 21001 let n$(1)="dungeoneer pack"
 21002 let n$(2)="explorer pack"
+21003 let n$(3)="scholar pack"
+21004 let n$(4)="component pouch"
+21005 let n$(5)="arcane focus"
+21006 let n$(6)="priest pack"
+21007 let n$(7)="holy symbol"
 21100 return
 22000 let a$(0)="empty"
 22001 let a$(1)="arrows"
 22002 let a$(2)="bolts"
 22100 return
+23000 let am$(0)="no armor"
+23001 let am$(1)="chain mail"
+23002 let am$(2)="leather armor"
+23003 let am$(3)="scale mail"
+23050 if am%=1 then let ap%=16 : ca%=1
+23051 if am%=2 then let ap%=11+d2% : ca%=0
+23052 if am%=3 then let ap%=14+d2% : ca%=1
+23100 return
