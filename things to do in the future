@@ -1,6 +1,9 @@
-1) ammo inventory and misc inventory in pg4 and pg 5
+1) ammo inventory and misc inventory in pg4 and pg 5 (DONE)
 2) return gold, put it in pg5 (misc inventory)
-3) finish the other two classes inventory choice
+3) finish the other two classes inventory choice (DONE)
+3.5) make mace selectable in the simple weapons selection at 2500, 5000
+3.6) add one more martial weapon to the martial weapons selection at 1500 & 1550, 6000
+3.7) implement subclasses for cleric and make them impact inventory choice process (as per roll20.net/compendium/dnd5e/Cleric#content)
 4) display currently held weapon in possibly pg3
 5) display current armor and current armor class (possibly in pg1 or pg2? pg6?)
 6) display attack with currently held weapon
