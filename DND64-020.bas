@@ -31,16 +31,21 @@
 113 if ra%=4 and sr%=4 then let w1%=w1%+1 : sr$="(fierna)"
 120 print chr$(147)
 121 print "1 - acolyte 2 - noble 3 - soldier 4 - sage"
-122 print
-123 input "choose your background by printing in its number"; ba%
-124 if ba%>4 or ba%<1 goto 120
+129 print
+130 input "choose your background by printing in its number"; ba%
+135 if ba%>4 or ba%<1 goto 120
 150 print chr$(147)
 151 print "1 - fighter 2 - warlock 3 - cleric"
 152 print
 153 input "choose your class by printing in its number"; cl%
 154 if cl%<1 or cl%>3 goto 150
+155 if cl%<3 then goto 160
+156 print chr$(147) : print "1 - knowledge 2 - life 3 - light 4 - war"
+157 print
+158 input "choose your clerical domain by printing in its number"; sc%
+159 if sc%=2 or sc%=4 then let ha%=1 : sl%=1 : if sc%=4 then let hw%=1
 160 if cl%=1 then ac%=2 : ah%=2 : at%=2 : hi%=2 : is%=2 : it%=2 : pn%=2 : su%=2
-161 if cl%=1 then cl$="fighter" : hp%=10 : s3%=2 : e3%=2
+161 if cl%=1 then cl$="fighter" : hp%=10 : s3%=2 : e3%=2 : ha%=1 : sl%=1
 162 if cl%=2 then ar%=2 : dc%=2 : hi%=2 : it%=2 : iv%=2 : na%=2 : re%=2
 163 if cl%=2 then cl$="warlock" : hp%=8 : w3%=2 : c3%=2
 164 if cl%=3 then hi%=2 : is%=2 : me%=2 : pr%=2 : re%=2 : cl$="cleric"
@@ -250,6 +255,8 @@
 761 print "misc slot number"z%;n$(n%(z%));n1%(z%) : let z%=z%+1
 762 if z% <10 goto 761
 770 print
+771 print "gp -" gp%
+772 print
 780 print "page 4/5 ";
 781 input "choose your page"; pa%
 782 if pa%=1 goto 395
@@ -312,16 +319,16 @@
 1500 print chr$(147)
 1501 gosub 5000
 1502 input "choose your martial weapon"; x%
-1503 if x%<1 or x%>9 then goto 1500
+1503 if x%<1 or x%>10 then goto 1500
 1504 let x1%=1 : gosub 10000
 1505 goto 1200
 1550 print chr$(147)
 1551 gosub 5000
 1552 input "choose your first martial weapon"; x%
-1553 if x%<1 or x%>9 then goto 1550
+1553 if x%<1 or x%>10 then goto 1550
 1554 let x1%=1 : gosub 10000
 1555 input "choose your second martial weapon"; x%
-1556 if x%<1 or x%>9 then goto 1550
+1556 if x%<1 or x%>10 then goto 1550
 1557 let x1%=1 : gosub 10000
 1558 goto 1200
 2000 print chr$(147)
@@ -355,27 +362,29 @@
 2500 print chr$(147)
 2501 gosub 6000
 2502 input "choose your simple weapon"; sw%
-2503 if sw%<1 or sw%>9 then goto 2500
+2503 if sw%<1 or sw%>10 then goto 2500
 2504 let x%=sw%+10 : let x1%=1 : gosub 10000
 2505 return
 3000 print chr$(147)
+3005 if hw%=0 then let x%=20 : x1%=1 : gosub 10000 : goto 3100
 3010 print "1 - a mace"
 3020 print "2 - a warhammer"
 3025 print
 3030 input "choose your starting equipment"; ic%(1)
 3040 if ic%(1)<1 or ic%(1)>2 then goto 3000
 3050 if ic%(1)=1 then let x%=20 : x1%=1 : gosub 10000
-3060 if ic%(2)=1 then let x%=7 : x1%=1 : gosub 10000
+3060 if ic%(1)=2 then let x%=7 : x1%=1 : gosub 10000
 3100 print chr$(147)
 3110 print "1 - scale mail"
 3120 print "2 - leather armor"
-3130 print "3 - chain mail"
+3130 if ha%=1 then print "3 - chain mail"
 3135 print
 3140 input "choose your starting equipment"; ic%(2)
 3150 if ic%(2)<1 or ic%(2)>3 then goto 3100
 3151 if ic%(2)=1 then let am%=3
 3152 if ic%(2)=2 then let am%=2
-3153 if ic%(2)=3 then let am%=1
+3153 if ha%=0 and ic%(2)=3 then goto 3100
+3154 if ic%(2)=3 then let am%=1
 3160 print chr$(147)
 3161 print "1 - a light crossbow and 20 bolts"
 3162 print "2 - any simple weapon"
@@ -405,8 +414,9 @@
 5006 print "7 - warhammer"
 5007 print "8 - shortsword"
 5008 print "9 - halberd"
-5009 print
-5010 return
+5009 print "10 - flail"
+5010 print
+5100 return
 6000 print "1 - light crossbow"
 6001 print "2 - shortbow"
 6002 print "3 - sling"
@@ -416,8 +426,9 @@
 6006 print "7 - quarterstuff"
 6007 print "8 - handaxe"
 6008 print "9 - sickle"
-6009 print
-6010 return
+6009 print "10 - mace"
+6010 print
+6100 return
 10000 let z%=0
 10001 if p%(z%)=0 or p%(z%)=x% then let p%(z%)=x% : p1%(z%)=p1%(z%)+x1%:return
 10002 if p%(z%)<>0 then let z%=z%+1 : goto 10001
@@ -437,7 +448,8 @@
 20007 let p$(7)="warhammer"
 20008 let p$(8)="shortsword"
 20009 let p$(9)="halberd"
-20010 let p$(11)="light crossbow"
+20010 let p$(10)="flail"
+20011 let p$(11)="light crossbow"
 20012 let p$(12)="shortbow"
 20013 let p$(13)="sling"
 20014 let p$(14)="spear"
