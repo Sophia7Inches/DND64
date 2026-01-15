@@ -1,5 +1,4 @@
 1 dim p$(25)
-2 dim p%(25)
 10 print chr$(147) : sp%=30
 20 print "1 - human 2 - elf 3 - dwarf 4 - tiefling"
 25 print
@@ -60,24 +59,24 @@
 177 if ba%=4 then let ar$="arcana " : hi$="history "
 180 if ra%=2 then let pn%=1 : r1%=13 : pn$="perception "
 185 print chr$(147)
-190 if at%=2 then print "athletics - 1"
-191 if ac%=2 then print "acrobatics - 2"
-192 if sd%=2 then print "sleight of hand - 3"
-193 if sh%=2 then print "stealth - 4"
-194 if ar%=2 then print "arcana - 5"
-195 if hi%=2 then print "history - 6"
-196 if iv%=2 then print "investigation - 7"
-197 if na%=2 then print "nature - 8"
-198 if re%=2 then print "religion - 9"
-199 if ah%=2 then print "animal handling - 10"
-200 if is%=2 then print "insight - 11"
-201 if me%=2 then print "medicine - 12"
-202 if pn%=2 then print "perception - 13"
-203 if su%=2 then print "survival - 14"
-204 if dc%=2 then print "deception - 15"
-205 if it%=2 then print "intimidation - 16"
-206 if pe%=2 then print "performance - 17"
-207 if pr%=2 then print "persuasion - 18"
+190 if at%=2 and b1%<>1 then print "athletics - 1"
+191 if ac%=2 and b1%<>2 then print "acrobatics - 2"
+192 if sd%=2 and b1%<>3 then print "sleight of hand - 3"
+193 if sh%=2 and b1%<>4 then print "stealth - 4"
+194 if ar%=2 and b1%<>5 then print "arcana - 5"
+195 if hi%=2 and b1%<>6 then print "history - 6"
+196 if iv%=2 and b1%<>7 then print "investigation - 7"
+197 if na%=2 and b1%<>8 then print "nature - 8"
+198 if re%=2 and b1%<>9 then print "religion - 9"
+199 if ah%=2 and b1%<>10 then print "animal handling - 10"
+200 if is%=2 and b1%<>11 then print "insight - 11"
+201 if me%=2 and b1%<>12 then print "medicine - 12"
+202 if pn%=2 and b1%<>13 then print "perception - 13"
+203 if su%=2 and b1%<>14 then print "survival - 14"
+204 if dc%=2 and b1%<>15 then print "deception - 15"
+205 if it%=2 and b1%<>16 then print "intimidation - 16"
+206 if pe%=2 and b1%<>17 then print "performance - 17"
+207 if pr%=2 and b1%<>18 then print "persuasion - 18"
 208 print
 210 if b1%<>0 goto 220
 211 input "choose your first proficiency by printing in its number"; b1%
@@ -171,9 +170,19 @@
 389 let pe%(1)=c2% : if pe%=1 then let pe%(1)=c2%+2
 390 let pr%(1)=c2% : if pr%=1 then let pr%(1)=c2%+2
 391 let hp%=hp%+e2% : if ra%=3 and sr%=1 then let hp%=hp%+1
-395 print chr$(147)
-400 print "your character race is " ra$" "sr$
-401 print
+392 gosub 20000
+393 print chr$(147)
+394 let z%=0
+395 print "weapon slot number"z%;p$(p%(z%));p1%(z%) : let z%=z%+1
+396 if p%(z%)>0 then goto 395
+397 let z1%=z%
+398 print
+399 input "choose your currently held weapon by picking its slot number"; z%
+400 if z%<0 or z%>=z1% then goto 393
+401 let p2%=p%(z%)
+405 print chr$(147)
+406 print "your character race is " ra$" "sr$
+407 print
 410 print "your character background is " ba$
 411 print
 420 print "your character class is " cl$
@@ -199,7 +208,7 @@
 530 print "page 1/5 ";
 531 input "choose your page"; pa%
 535 if pa%<1 or pa%>5 then print chr$(145) chr$(145) : goto 530
-536 if pa%=1 goto 395
+536 if pa%=1 goto 405
 540 if pa%=2 then print chr$(147)
 541 if pa%=3 goto 590
 542 if pa%=4 goto 706
@@ -229,20 +238,19 @@
 581 input "choose your page"; pa%
 585 if pa%<1 or pa%>5 then print chr$(145) chr$(145) : goto 580
 586 if pa%=2 goto 540
-587 if pa%=1 goto 395
+587 if pa%=1 goto 405
 588 if pa%=4 goto 706
 589 if pa%=5 goto 786
 590 if pa%=3 then print chr$(147)
-600 gosub 20000
 601 print "character weapon inventory"
 602 print
-610 let z%=0
-611 print "weapon slot number"z%;p$(p%(z%));p1%(z%) : let z%=z%+1
-612 if z% <10 goto 611
+603 gosub 10500
+605 print
+610 print "your currently held weapon is " p$(p2%)
 650 print
 700 print "page 3/5 ";
 701 input "choose your page"; pa%
-702 if pa%=1 goto 395
+702 if pa%=1 goto 405
 703 if pa%=2 goto 540
 704 if pa%=3 goto 590
 705 if pa%=5 goto 786
@@ -259,7 +267,7 @@
 772 print
 780 print "page 4/5 ";
 781 input "choose your page"; pa%
-782 if pa%=1 goto 395
+782 if pa%=1 goto 405
 783 if pa%=2 goto 540
 784 if pa%=3 goto 590
 785 if pa%=4 goto 706
@@ -274,7 +282,7 @@
 820 print
 830 print "page 5/5 ";
 831 input "choose your page"; pa%
-832 if pa%=1 goto 395
+832 if pa%=1 goto 405
 833 if pa%=2 goto 540
 834 if pa%=3 goto 590
 835 if pa%=4 goto 706
@@ -432,6 +440,10 @@
 10000 let z%=0
 10001 if p%(z%)=0 or p%(z%)=x% then let p%(z%)=x% : p1%(z%)=p1%(z%)+x1%:return
 10002 if p%(z%)<>0 then let z%=z%+1 : goto 10001
+10500 let z%=0
+10501 print "weapon slot number"z%;p$(p%(z%));p1%(z%) : let z%=z%+1
+10502 if z% <10 goto 10501
+10503 return
 11000 let z%=0
 11001 if n%(z%)=0 or n%(z%)=y% then let n%(z%)=y% : n1%(z%)=n1%(z%)+y1%:return
 11002 if n%(z%)<>0 then let z%=z%+1 : goto 11001
