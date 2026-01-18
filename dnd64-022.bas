@@ -175,16 +175,18 @@
 394 let z%=0
 395 print "weapon slot number"z%;p$(p%(z%));p1%(z%) : let z%=z%+1
 396 if p%(z%)>0 then goto 395
-397 let z1%=z%
+397 let z1%=z% : print "weapon slot number"z1%"no weapon"
 398 print
-399 input "choose your currently held weapon by picking its slot number"; z%
-400 if z%<0 or z%>=z1% then goto 393
-401 let p2%=p%(z%)
-405 print chr$(147)
-406 print "your character race is " ra$" "sr$
-407 print
-410 print "your character background is " ba$
-411 print
+399 input "choose a weapon to hold in your hands"; z%
+400 if z%<0 or z%>z1% then goto 393
+401 if z%=z1% then let p2%=0 : goto 414
+402 let p2%=p%(z%) : if p1%(z%)>1 then let p1%(z%)=p1%(z%)-1 : goto 414
+403 if  p1%(z%)=1 then let p1%(z%)=0 : p%(z%)=0
+414 print chr$(147)
+415 print "your character race is " ra$" "sr$
+416 print
+417 print "your character background is " ba$
+418 print
 420 print "your character class is " cl$
 421 print
 430 print "your character proficiencies are:"
@@ -208,7 +210,7 @@
 530 print "page 1/5 ";
 531 input "choose your page"; pa%
 535 if pa%<1 or pa%>5 then print chr$(145) chr$(145) : goto 530
-536 if pa%=1 goto 405
+536 if pa%=1 goto 414
 540 if pa%=2 then print chr$(147)
 541 if pa%=3 goto 590
 542 if pa%=4 goto 706
@@ -238,7 +240,7 @@
 581 input "choose your page"; pa%
 585 if pa%<1 or pa%>5 then print chr$(145) chr$(145) : goto 580
 586 if pa%=2 goto 540
-587 if pa%=1 goto 405
+587 if pa%=1 goto 414
 588 if pa%=4 goto 706
 589 if pa%=5 goto 786
 590 if pa%=3 then print chr$(147)
@@ -246,11 +248,12 @@
 602 print
 603 gosub 10500
 605 print
+609 if p2%=0 then print "you do not currently hold a weapon" : goto 650
 610 print "your currently held weapon is " p$(p2%)
 650 print
 700 print "page 3/5 ";
 701 input "choose your page"; pa%
-702 if pa%=1 goto 405
+702 if pa%=1 goto 414
 703 if pa%=2 goto 540
 704 if pa%=3 goto 590
 705 if pa%=5 goto 786
@@ -267,7 +270,7 @@
 772 print
 780 print "page 4/5 ";
 781 input "choose your page"; pa%
-782 if pa%=1 goto 405
+782 if pa%=1 goto 414
 783 if pa%=2 goto 540
 784 if pa%=3 goto 590
 785 if pa%=4 goto 706
@@ -282,7 +285,7 @@
 820 print
 830 print "page 5/5 ";
 831 input "choose your page"; pa%
-832 if pa%=1 goto 405
+832 if pa%=1 goto 414
 833 if pa%=2 goto 540
 834 if pa%=3 goto 590
 835 if pa%=4 goto 706
@@ -467,7 +470,7 @@
 20014 let p$(14)="spear"
 20015 let p$(15)="dagger"
 20016 let p$(16)="greatclub"
-20017 let p$(17)="quarterstuff"
+20017 let p$(17)="quarterstaff"
 20018 let p$(18)="handaxe"
 20019 let p$(19)="sickle"
 20020 let p$(20)="mace"
